@@ -27,7 +27,7 @@
     }
   </script>
 
- <style>
+<style>
     /* =================================================== */
     /* 1. التنسيقات العامة والخطوط العصرية                 */
     /* =================================================== */
@@ -156,7 +156,7 @@
     }
 
     /* =================================================== */
-    /* 4. كرت العضوية والخصومات (تم إعادتها وتناسقها)       */
+    /* 4. كرت العضوية والخصومات                           */
     /* =================================================== */
     .member-card-box {
       background: linear-gradient(135deg, #ffffff, #f9fbf9) !important;
@@ -187,8 +187,39 @@
       margin-right: auto !important;
     }
 
+    .member-id-container {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+      border: 2px dashed #D4AF37 !important;
+      border-radius: 16px !important;
+      padding: 12px 24px;
+      display: inline-block;
+      margin: 12px 0;
+    }
+
+    #member-id-number {
+      color: #114232 !important;
+      font-size: 32px !important;
+      font-weight: bold;
+    }
+
+    .copy-card-btn {
+      background: linear-gradient(90deg, #114232, #1e5a46) !important;
+      color: #D4AF37 !important;
+      box-shadow: 0 8px 20px rgba(17, 66, 50, 0.2) !important;
+      border: none !important;
+      padding: 10px 20px; 
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 15px; 
+      transition: all 0.3s ease;
+      display: inline-block;
+      touch-action: manipulation;
+    }
+    .copy-card-btn:hover { transform: translateY(-3px) !important; }
+
     /* =================================================== */
-    /* 5. شبكة وكروت المنتجات                              */
+    /* 5. شبكة وكروت المنتجات                             */
     /* =================================================== */
     .products-grid {
       display: grid;
@@ -210,6 +241,7 @@
       border: 1px solid rgba(0,0,0,0.02) !important;
       overflow: hidden; 
       position: relative;
+      height: auto !important;
     }
 
     .product-card:hover {
@@ -234,6 +266,7 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       background: linear-gradient(to top, #ffffff 80%, rgba(255,255,255,0));
     }
 
@@ -248,7 +281,7 @@
     .product-benefits {
       font-size: 14px !important;
       font-weight: 600 !important; 
-      color: #777 !important;    
+      color: #2c5e3b !important;    
       margin-bottom: 20px !important;
       line-height: 1.6;
     }
@@ -266,6 +299,9 @@
     }
 
     .btn-add-to-cart {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
       background: #114232 !important;
       color: white !important;
       border: none !important;
@@ -288,9 +324,15 @@
     }
 
     /* =================================================== */
-    /* 6. العناصر العائمة المضافة والمحدثة                 */
+    /* 6. العناصر العائمة المضافة والمحدثة                  */
     /* =================================================== */
-    #top-left-cart {
+    .fixed-cart-top, #top-left-cart {
+      position: fixed !important;
+      top: 15px !important;
+      left: 15px !important;
+      z-index: 9999 !important;
+      display: none; 
+      touch-action: manipulation;
       background: rgba(255, 255, 255, 0.85) !important;
       backdrop-filter: blur(12px) !important;
       -webkit-backdrop-filter: blur(12px) !important;
@@ -299,11 +341,24 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
       transition: all 0.3s ease !important;
       border-radius: 50px !important;
+      padding: 10px 18px !important;
+      font-weight: bold !important;
+      font-size: 15px !important;
+      cursor: pointer;
     }
 
-    #top-left-cart:hover {
+    .fixed-cart-top:hover, #top-left-cart:hover {
       background: #114232 !important;
       color: #D4AF37 !important;
+    }
+
+    .fixed-cart-top .cart-badge, #top-left-cart .cart-badge {
+      background-color: #cc3333;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 13px;
+      margin-right: 5px;
     }
 
     #floating-share-btn {
@@ -338,7 +393,7 @@
       backdrop-filter: blur(10px) !important;
       border: 1px solid rgba(212, 175, 55, 0.2) !important;
       border-radius: 50% !important;
-      display: flex !important;
+      display: flex !important; 
       align-items: center !important;
       justify-content: center !important;
       cursor: pointer !important;
@@ -367,9 +422,11 @@
       width: 90% !important; 
       max-width: 450px !important; 
       border: 1px solid rgba(255,255,255,0.6) !important;
+      box-sizing: border-box;
     }
 
     .floating-btn {
+      flex: 1;
       padding: 12px 10px !important;
       border-radius: 14px !important;
       color: white !important;
@@ -377,6 +434,10 @@
       font-size: 14px !important;
       transition: all 0.3s ease !important;
       border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .btn-wa { background: linear-gradient(135deg, #25D366, #128C7E) !important; }
@@ -388,12 +449,36 @@
     .contact-item {
       background: rgba(17, 66, 50, 0.05) !important;
       border-radius: 12px !important;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      position: relative;
+      transition: background 0.2s;
+      user-select: none;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* =================================================== */
     /* 7. النوافذ المنبثقة والسلة وصور المنتجات             */
     /* =================================================== */
     .cart-modal {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: none; 
+      justify-content: center !important;
+      align-items: center !important;
+      z-index: 99999 !important;
+      padding: 15px !important;
+      box-sizing: border-box !important;
       background: rgba(17, 66, 50, 0.7) !important;
       backdrop-filter: blur(8px) !important;
       -webkit-backdrop-filter: blur(8px) !important;
@@ -404,9 +489,28 @@
       border-radius: 24px !important;
       box-shadow: 0 25px 60px rgba(0,0,0,0.25) !important;
       border: 1px solid rgba(255,255,255,0.8) !important;
+      width: 100% !important;
+      max-width: 460px !important;
+      max-height: 85vh !important;
+      overflow-y: auto !important;
+      margin: 0 auto !important;
+      padding: 22px !important;
     }
 
     .close-cart-btn {
+      position: sticky !important;
+      top: 0px !important;
+      float: left !important;
+      border: none !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      z-index: 10000 !important;
+      margin-bottom: -32px !important;
       background: #f1f3f5 !important;
       color: #114232 !important;
       transition: all 0.3s ease !important;
@@ -418,23 +522,27 @@
       transform: rotate(90deg) !important;
     }
 
-    .member-id-container {
-      background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
-      border: 2px dashed #D4AF37 !important;
-      border-radius: 16px !important;
+    .cart-header {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 2px solid #114232; 
+      padding-bottom: 10px; 
+      margin-bottom: 15px;
     }
 
-    #member-id-number {
-      color: #114232 !important;
-      font-size: 32px !important;
+    .cart-items-list { 
+      margin-bottom: 15px;
     }
 
-    .copy-card-btn {
-      background: linear-gradient(90deg, #114232, #1e5a46) !important;
-      color: #D4AF37 !important;
-      box-shadow: 0 8px 20px rgba(17, 66, 50, 0.2) !important;
+    .cart-summary { 
+      font-size: 18px; 
+      font-weight: bold; 
+      border-bottom: 1px dashed #ccc;
+      padding-bottom: 10px; 
+      margin-bottom: 15px; 
+      text-align: right; 
     }
-    .copy-card-btn:hover { transform: translateY(-3px) !important; }
 
     .image-modal {
       display: none;
@@ -490,7 +598,7 @@
       .product-name { font-size: 16px !important; margin-bottom: 5px !important; }
       .product-benefits { font-size: 12px !important; line-height: 1.4 !important; }
       .product-price { font-size: 15px !important; padding: 8px !important; }
-      .btn-add-to-cart { font-size: 13px !important; padding: 10px !important; }
+      .btn-add-to-cart { font-size: 13px !important; padding: 10px !important; width: 100% !important; border-radius: 6px !important; margin: 8px auto 0 auto !important;}
       
       .floating-contact-bar {
         width: 92% !important;
@@ -498,13 +606,13 @@
         bottom: 20px !important;
       }
       .floating-btn { font-size: 12px !important; padding: 12px 5px !important; }
+      .cart-content { width: 88% !important; max-height: 82vh !important; padding: 16px !important; }
     }
     
     @media (min-width: 992px) {
       .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 20px !important; }
     }
 </style>
-
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
