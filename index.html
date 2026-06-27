@@ -27,7 +27,7 @@
     }
   </script>
 
-  <style>
+ <style>
     /* =================================================== */
     /* 1. التنسيقات العامة والخطوط العصرية                 */
     /* =================================================== */
@@ -35,6 +35,7 @@
 
     * {
       -webkit-tap-highlight-color: transparent !important;
+      -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
       -webkit-focus-ring-color: transparent !important;
       outline: none !important;
       box-sizing: border-box;
@@ -120,7 +121,7 @@
     }
 
     /* =================================================== */
-    /* 3. تصنيفات المنتجات (أزرار عائمة)                   */
+    /* 3. تصنيفات المنتجات (أزرار عائمة)                    */
     /* =================================================== */
     .categories {
       display: flex;
@@ -155,7 +156,39 @@
     }
 
     /* =================================================== */
-    /* 4. شبكة وكروت المنتجات (تصميم احترافي وناعم)        */
+    /* 4. كرت العضوية والخصومات (تم إعادتها وتناسقها)       */
+    /* =================================================== */
+    .member-card-box {
+      background: linear-gradient(135deg, #ffffff, #f9fbf9) !important;
+      max-width: 420px;
+      margin: 25px auto;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(17, 66, 50, 0.06);
+      border: 2px dashed #114232;
+      text-align: center;
+      position: relative;
+    }
+
+    .membership-card {
+      background: linear-gradient(135deg, #114232, #0A221A);
+      border: 1px solid #D4AF37;
+      border-radius: 14px;
+      padding: 20px;
+      color: #ffffff;
+      max-width: 340px;
+      margin: 15px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .member-card-box, .membership-card {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    /* =================================================== */
+    /* 5. شبكة وكروت المنتجات                              */
     /* =================================================== */
     .products-grid {
       display: grid;
@@ -215,7 +248,7 @@
     .product-benefits {
       font-size: 14px !important;
       font-weight: 600 !important; 
-      color: #777 !important;   
+      color: #777 !important;    
       margin-bottom: 20px !important;
       line-height: 1.6;
     }
@@ -255,7 +288,7 @@
     }
 
     /* =================================================== */
-    /* 5. العناصر العائمة (شريط التواصل والسلة الزجاجية)   */
+    /* 6. العناصر العائمة المضافة والمحدثة                 */
     /* =================================================== */
     #top-left-cart {
       background: rgba(255, 255, 255, 0.85) !important;
@@ -272,6 +305,50 @@
       background: #114232 !important;
       color: #D4AF37 !important;
     }
+
+    #floating-share-btn {
+      position: fixed;
+      top: 20px;          
+      right: 20px;        
+      background: #114232 !important; 
+      color: #D4AF37 !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      padding: 12px 20px;
+      border-radius: 50px; 
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(17, 66, 50, 0.2); 
+      z-index: 99;      
+      cursor: pointer;
+      direction: rtl;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .scroll-to-top {
+      position: fixed !important;
+      bottom: 100px !important; 
+      right: 25px !important;   
+      width: 60px !important;
+      height: 60px !important;
+      background-color: rgba(17, 66, 50, 0.85) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      backdrop-filter: blur(10px) !important;
+      border: 1px solid rgba(212, 175, 55, 0.2) !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease !important;
+      z-index: 9999 !important;
+    }
+    .scroll-to-top.show { opacity: 1 !important; visibility: visible !important; }
 
     .floating-contact-bar {
       position: fixed;
@@ -314,7 +391,7 @@
     }
 
     /* =================================================== */
-    /* 6. النوافذ المنبثقة (السلة وكود الخصم)              */
+    /* 7. النوافذ المنبثقة والسلة وصور المنتجات             */
     /* =================================================== */
     .cart-modal {
       background: rgba(17, 66, 50, 0.7) !important;
@@ -357,18 +434,51 @@
       color: #D4AF37 !important;
       box-shadow: 0 8px 20px rgba(17, 66, 50, 0.2) !important;
     }
-    .copy-card-btn:hover {
-      transform: translateY(-3px) !important;
+    .copy-card-btn:hover { transform: translateY(-3px) !important; }
+
+    .image-modal {
+      display: none;
+      position: fixed; 
+      z-index: 99999;
+      left: 0; top: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+    }
+    .image-modal img { max-width: 90%; max-height: 85%; border-radius: 12px; }
+
+    /* =================================================== */
+    /* 8. استمارة الشراء والمدخلات التابعة لها            */
+    /* =================================================== */
+    .checkout-form { border-top: 3px solid #114232 !important; }
+    .checkout-form h4, #cart-modal h4 {
+      background-color: #114232 !important;
+      color: #ffffff !important;
+      padding: 10px; border-radius: 8px; text-align: center; margin-top: 15px;
+    }
+    .checkout-form label { color: #114232 !important; font-weight: bold !important; margin-top: 5px; display: block;}
+    .checkout-form input, .checkout-form select, .checkout-form textarea {
+      width: 100%; padding: 12px; margin-bottom: 12px;
+      border: 1px solid rgba(17, 66, 50, 0.2) !important; border-radius: 10px;
+      font-size: 15px; box-sizing: border-box;
+    }
+    .submit-buttons-row { display: flex; gap: 10px; margin-top: 15px; }
+    .btn-send { flex: 1; border: none; padding: 12px; border-radius: 10px; color: #fff; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.2s; }
+    .wa-btn { background-color: #25D366; }
+    .tg-btn { background-color: #0088cc; }
+
+    .contact-item .tooltip-text {
+      visibility: hidden; background-color: #333; color: #fff; text-align: center;
+      border-radius: 6px; padding: 6px 12px; position: absolute; z-index: 100;
+      bottom: 130%; left: 50%; transform: translateX(-50%); font-size: 13px;
+      white-space: nowrap; opacity: 0; transition: opacity 0.2s;
     }
 
     /* =================================================== */
-    /* 7. شاشات الموبايل (Responsive)                      */
+    /* 9. شاشات الموبايل (Responsive)                      */
     /* =================================================== */
     @media (max-width: 768px) {
-      header {
-        padding: 25px 15px !important;
-        border-radius: 20px !important;
-      }
+      header { padding: 25px 15px !important; border-radius: 20px !important; }
       header h1 { font-size: 26px !important; }
       
       .products-grid, #products-container {
@@ -389,7 +499,11 @@
       }
       .floating-btn { font-size: 12px !important; padding: 12px 5px !important; }
     }
-  </style>
+    
+    @media (min-width: 992px) {
+      .products-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 20px !important; }
+    }
+</style>
 
   <script>
     if ('serviceWorker' in navigator) {
