@@ -443,7 +443,7 @@
       justify-content: center; 
       align-items: center;      
       z-index: 99999;
-      padding: 0 !important; /* شاشة كاملة بدون أي حواف فارغة */
+      padding: 0 !important;
       box-sizing: border-box;
     }
 
@@ -463,64 +463,12 @@
       overflow-y: auto;
       margin: 0 !important; 
       box-sizing: border-box;
+      position: relative !important;
       
-      /* نظام الـ Grid للموبايل والتطبيق افتراضياً */
-      display: grid !important;
-      grid-template-columns: 1fr;
-      gap: 25px;
-      align-content: start;
-    }
-
-    .cart-header {
-      grid-column: 1 / -1;
-      grid-row: 1; /* إجبار العنوان على البقاء في القمة دائماً ومنع نزوله */
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center;
-      border-bottom: 2px solid #114232; 
-      padding-bottom: 12px; 
-      margin-bottom: 10px;
-    }
-
-    /* 🎯 ستايل وتوزيع شي إن (SHEIN) الاحترافي للشاشات الكبيرة (لابتوب) */
-    @media (min-width: 769px) {
-      .cart-content {
-        /* تقسيم الشاشة: الأيمن للاستمارة والتفاصيل والأيسر للمنتجات */
-        grid-template-columns: 1fr 1.4fr; 
-        padding: 40px !important;
-        gap: 50px;
-      }
-
-      /* 🟢 الجانب الأيمن: استمارة الشحن والتوصيل (تظهر يميناً في نظام RTL) */
-      .checkout-form {
-        grid-column: 1; 
-        grid-row: 2 / 4; 
-        border-top: none !important;
-        background: #fdfdfd;
-        border: 1px solid #eef2f0 !important;
-        border-right: 4px solid #114232 !important; /* خط أخضر عمودي أنيق يحدد كرت التفاصيل */
-        padding: 30px 25px !important;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* ظلال خفيفة وناعمة مثل شي إن */
-      }
-
-      /* 🔵 الجانب الأيسر: قائمة المنتجات المطلوبة */
-      #cart-items-list {
-        grid-column: 2; 
-        grid-row: 2;
-        padding-left: 10px;
-      }
-
-      /* إجمالي الحساب والمجموع أسفل المنتجات في الجانب الأيسر */
-      .cart-summary {
-        grid-column: 2;
-        grid-row: 3;
-        background: #f9fbf9;
-        padding: 25px 20px;
-        border-radius: 8px;
-        border: 1px dashed #114232;
-        margin-top: 10px;
-      }
+      /* الترتيب الانسيابي الافتراضي للموبايل والتطبيق لمنع تداخل العناصر */
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 20px;
     }
 
     .close-cart-btn { 
@@ -547,6 +495,15 @@
       transform: rotate(90deg);
     }
 
+    .cart-header {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      border-bottom: 2px solid #114232; 
+      padding-bottom: 12px; 
+      margin-bottom: 10px;
+    }
+
     .cart-items-list { 
       margin-bottom: 15px; 
     }
@@ -558,6 +515,66 @@
       padding-bottom: 10px; 
       margin-bottom: 15px; 
       text-align: right; 
+    }
+
+    /* 🎯 تحويل السلة إلى ستايل وتوزيع موقع (SHEIN) بالكامل على اللابتوب والشاشات الكبيرة */
+    @media (min-width: 769px) {
+      .cart-content {
+        display: grid !important;
+        /* تقسيم ذكي: اليمين للاستمارة والتفاصيل (1fr) واليسار للمنتجات وحسابها (1.4fr) */
+        grid-template-columns: 1fr 1.4fr; 
+        grid-template-rows: auto auto auto;
+        padding: 40px !important;
+        gap: 40px;
+      }
+
+      /* عزل زر الإغلاق مطلقاً بالزاوية العليا لمنع تخريب الجداول */
+      .close-cart-btn {
+        position: absolute !important;
+        top: 40px;
+        left: 40px;
+        margin: 0 !important;
+        float: none !important;
+      }
+
+      /* تثبيت العنوان فوق بالقمة بعرض الشاشة كاملة ومنع نزوله نهائياً */
+      .cart-header {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      /* 👉 الجانب الأيمن الفخم: استمارة الشحن والمعلومات مغلّفة كـ كرت مستقل مثل شي إن */
+      .checkout-form {
+        grid-column: 1 !important;
+        grid-row: 2 / 4 !important;
+        border-top: none !important;
+        background: #ffffff;
+        border: 1px solid #e2e8f0 !important;
+        border-top: 4px solid #114232 !important; /* خط علوي أخضر فخم للكرت */
+        padding: 30px 25px !important;
+        border-radius: 12px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04); /* ظلال ناعمة ومريحة للعين */
+      }
+
+      /* 👈 الجانب الأيسر: قائمة المنتجات المطلوبة */
+      #cart-items-list {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+        margin-bottom: 0;
+      }
+
+      /* كرت حساب المجموع أسفل المنتجات بالجانب الأيسر */
+      .cart-summary {
+        grid-column: 2 !important;
+        grid-row: 3 !important;
+        background: #f8fafc;
+        padding: 25px 20px;
+        border-radius: 12px;
+        border: 1px dashed #114232;
+        margin-top: 0;
+      }
     }
 
     .image-modal {
@@ -603,7 +620,7 @@
       width: 100%; 
       padding: 11px; 
       margin-bottom: 12px;
-      border: 1px solid #cbd5e1 !important; /* لون حواف رمادي ناعم وأكثر حداثة */
+      border: 1px solid #cbd5e1 !important; 
       border-radius: 8px; 
       font-family: inherit; 
       font-size: 15px; 
@@ -612,7 +629,7 @@
     }
     
     .checkout-form input:focus, .checkout-form select:focus, .checkout-form textarea:focus {
-      border-color: #114232 !important; /* تحويل لون الحقل للأخضر عند الكتابة */
+      border-color: #114232 !important; 
     }
 
     .checkout-form textarea { 
@@ -803,7 +820,7 @@
 @media (min-width: 992px) {
     .products-grid {
         grid-template-columns: repeat(4, 1fr) !important;
-        gap: 15px !important; /* المسافة بين الكارتات */
+        gap: 15px !important; 
     }
 }
 
