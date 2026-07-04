@@ -447,7 +447,8 @@
       transform-origin: center; 
     } 
 
-    .cart-content {
+    /* 🟢 أولاً: ستايل شاشة السلة الكاملة المخصص فقط لـ #cart-modal */
+    #cart-modal .cart-content {
       background: #ffffff; 
       width: 100% !important; 
       max-width: 100% !important;
@@ -459,16 +460,30 @@
       margin: 0 !important; 
       box-sizing: border-box;
       position: relative !important;
-      
-      /* الترتيب الانسيابي الافتراضي للموبايل والتطبيق */
       display: flex !important;
       flex-direction: column !important;
       gap: 20px;
     }
 
-    /* 🎯 زر إغلاق السلة المطور والمتحرك (يظهر دائماً في أقصى اليسار ولا يختفي عند السحب) */
-    .close-cart-btn { 
-      position: fixed !important; /* تحويله إلى fixed ليطفو دائماً فوق الشاشة باليسار */
+    /* 🟡 ثانياً: إرجاع كرت العضوية صغيراً ومرتباً في منتصف الشاشة لـ #member-modal */
+    #member-modal .cart-content {
+      background: #ffffff !important; 
+      width: 92% !important; 
+      max-width: 460px !important; /* الحجم الصغير المرتب الأصلي */
+      height: auto !important; 
+      max-height: 85vh !important; 
+      border-radius: 14px !important; /* الحواف المنحنية الفخمة */
+      padding: 25px !important; 
+      overflow-y: auto !important;
+      margin: auto !important; 
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3) !important;
+      position: relative !important;
+      display: block !important; /* إلغاء نظام الـ Grid والـ Flex عنه */
+    }
+
+    /* زر إغلاق السلة العائم المخصص للشاشة الكاملة */
+    #cart-modal .close-cart-btn { 
+      position: fixed !important; 
       top: 25px !important;
       left: 25px !important; 
       background: #000000 !important; 
@@ -486,6 +501,25 @@
       margin: 0 !important;
       float: none !important;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* زر إغلاق كرت العضوية الصغير ليكون متناسقاً وبأعلى اليسار بداخل الكرت */
+    #member-modal .close-cart-btn {
+      position: absolute !important; /* يظل بداخل الكرت الصغير ولا يخرج للشاشة */
+      top: 20px !important;
+      left: 20px !important;
+      background: #000000 !important; 
+      border: none !important; 
+      width: 36px !important; 
+      height: 36px !important; 
+      border-radius: 50% !important; 
+      display: flex !important; 
+      align-items: center !important; 
+      justify-content: center !important; 
+      cursor: pointer !important; 
+      color: #ffffff !important; 
+      z-index: 10000 !important;
+      margin: 0 !important;
     }
 
     .close-cart-btn svg {
@@ -514,19 +548,19 @@
       padding-bottom: 10px;
     }
 
-    /* 🎯 ستايل كرت المجموع الإجمالي المرتب والمتحرك (Sticky) لجميع الأجهزة */
+    /* كرت المجموع الإجمالي المرتب والمتحرك (Sticky) أسفل الشاشة */
     .cart-summary { 
       font-size: 19px !important; 
       font-weight: bold !important; 
       text-align: right; 
       background: #ffffff !important;
       border: 1px solid #cbd5e1 !important;
-      border-right: 6px solid #114232 !important; /* خط جانبي أخضر فخم */
+      border-right: 6px solid #114232 !important; 
       border-radius: 12px !important;
       padding: 18px 20px !important;
       position: -webkit-sticky !important;
       position: sticky !important;
-      bottom: 15px !important; /* يجعله يطفو ويتحرك أسفل الشاشة عند السحب */
+      bottom: 15px !important; 
       z-index: 9999 !important;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07) !important;
       display: flex !important;
@@ -536,26 +570,24 @@
       width: 100%;
     }
 
-    /* 🎯 توزيع وتثبيت السلة بنظام شي إن (SHEIN) الاحترافي للشاشات الكبيرة (لابتوب) */
+    /* 🎯 توزيع وتثبيت السلة بنظام شي إن (SHEIN) للابتوب والشاشات الكبيرة */
     @media (min-width: 769px) {
-      .cart-content {
+      #cart-modal .cart-content {
         display: grid !important;
-        /* تقسيم ذكي: اليمين للاستمارة (1fr) واليسار للمنتجات والإجمالي (1.4fr) */
         grid-template-columns: 1fr 1.4fr; 
         grid-template-rows: auto auto;
         padding: 40px !important;
         gap: 40px;
       }
 
-      /* تثبيت العنوان فوق بالقمة بعرض الشاشة كاملة ومنع نزوله */
-      .cart-header {
+      #cart-modal .cart-header {
         grid-column: 1 / -1;
         grid-row: 1;
         width: 100%;
         margin-bottom: 10px;
       }
 
-      /* 👉 الجانب الأيمن: استمارة الشحن والمعلومات ثابتة عند السحب مثل شي إن */
+      /* 👉 الجانب الأيمن الفخم: استمارة الشحن والمعلومات */
       .checkout-form {
         grid-column: 1 !important;
         grid-row: 2 !important;
@@ -567,21 +599,21 @@
         border-radius: 12px;
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04); 
         position: sticky !important;
-        top: 25px !important; /* تظل ثابتة بمكانها عند سحب المنتجات */
+        top: 25px !important; 
       }
 
       /* 👈 الجانب الأيسر: قائمة المنتجات المطلوبة */
       #cart-items-list {
         grid-column: 2 !important;
         grid-row: 2 !important;
-        margin-bottom: 100px !important; /* مساحة بالأسفل لمنع غلق المنتجات خلف الصندوق المتحرك */
+        margin-bottom: 100px !important; 
       }
 
       /* كرت حساب المجموع المتحرك بذكاء بأسفل جانب المنتجات في اللابتوب */
-      .cart-summary {
+      #cart-modal .cart-summary {
         grid-column: 2 !important;
         grid-row: 2 !important;
-        align-self: end !important; /* دفعه لأسفل نطاق المنتجات */
+        align-self: end !important; 
         position: sticky !important;
         bottom: 25px !important;
         background: #ffffff !important;
