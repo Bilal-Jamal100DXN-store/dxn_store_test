@@ -471,23 +471,34 @@
       gap: 20px;
     }
 
+    /* 🎯 زر إغلاق السلة المطور - مطابقة تامة لـ image_9e34d4.png */
     .close-cart-btn { 
-      position: sticky !important;
-      top: 0px;
-      float: left;
+      position: absolute !important;
+      top: 25px !important;
+      left: 25px !important; /* تثبيت مطلق في أقصى اليسار للكل ومنعه من الزحف يميناً */
       background: #000000 !important; 
-      border: none; 
-      width: 34px; 
-      height: 34px; 
-      border-radius: 50%; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      cursor: pointer; 
+      border: none !important; 
+      width: 42px !important; /* حجم الدائرة السوداء الفخم والواضح للضغط */
+      height: 42px !important; 
+      border-radius: 50% !important; 
+      display: flex !important; 
+      align-items: center !important; 
+      justify-content: center !important; 
+      cursor: pointer !important; 
       color: #ffffff !important; 
-      transition: all 0.2s; 
-      z-index: 10000; 
-      margin-bottom: -34px;
+      transition: all 0.2s ease; 
+      z-index: 100000 !important; 
+      margin: 0 !important;
+      float: none !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* تكبير وتوضيح علامة الـ X البيضاء بداخل الدائرة */
+    .close-cart-btn svg {
+      width: 20px !important; 
+      height: 20px !important;
+      stroke: #ffffff !important;
+      stroke-width: 3px !important; /* جعل الخطوط عريضة وبارزة تماماً كالصورة */
     }
 
     .close-cart-btn:hover {
@@ -529,13 +540,7 @@
       }
 
       /* عزل زر الإغلاق مطلقاً بالزاوية العليا لمنع تخريب الجداول */
-      .close-cart-btn {
-        position: absolute !important;
-        top: 40px;
-        left: 40px;
-        margin: 0 !important;
-        float: none !important;
-      }
+     
 
       /* تثبيت العنوان فوق بالقمة بعرض الشاشة كاملة ومنع نزوله نهائياً */
       .cart-header {
@@ -1403,6 +1408,18 @@
       const pvAlertContainer = document.getElementById("smart-pv-alert");
 
       listContainer.innerHTML = "";
+
+      // 🟢 إضافة زر حذف السلة ديناميكياً هنا (يظهر فقط إذا كانت السلة تحتوي على منتجات)
+      if (cart.length > 0) {
+        listContainer.innerHTML = `
+          <div style="text-align: left; margin-bottom: 20px; width: 100%; display: flex; justify-content: flex-end;">
+            <button onclick="clearCart()" style="background: #fff5f5; color: #cc3333; border: 1px solid #ffe3e3; padding: 8px 14px; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px;" onmouseover="this.style.background='#ffe3e3'" onmouseout="this.style.background='#fff5f5'">
+              🗑️ حذف السلة بالكامل
+            </button>
+          </div>
+        `;
+      }
+      
       let total = 0;
       let totalItems = 0;
       let totalPV = 0;
@@ -1481,6 +1498,19 @@
       pvAlertContainer.style.display = "none";
 
       totalContainer.innerText = total.toLocaleString();
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(item => item.name !== name);
+      updateCartUI();
+    }
+
+    // 🔴 دالة حذف السلة بالكامل الجديدة مع تنبيه تأكيدي للزبون لحمايته من الضغط الخاطئ
+    function clearCart() {
+      if (confirm("هل أنت متأكد من رغبتك في إفراغ السلة وحذف جميع المنتجات المضافة؟")) {
+        cart = []; // تصفير المصفوفة
+        updateCartUI(); // تحديث الواجهة وتصفير العدادات تلقائياً
+      }
     }
 
     function changeQuantity(name, amount) {
